@@ -1,22 +1,25 @@
-import { useState } from 'react';
-import useFetchAssets from "../hooks/useFetchAssets";
+import { useState, useEffect } from 'react';
 import { useHelmet } from '../hooks/useHelmet';
 import './assets.scss';
 import { sorter } from '../utilities/sortingAlgo';
 
+import { getAssetList } from '../api/getAssetList';
 
 const Assets = () => {
-    const assetsList = useFetchAssets();
-    const { error, loading, response } = assetsList;
-
     useHelmet('Assets Page');
+    const [assetList, setAssetList] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    if(loading) {
+    useEffect(() => {
+        getAssetList()
+        .then(list => {
+            setAssetList(list);
+        })
+    }, [])
+
+
+    if(!assetList.length || loading ) {
         return <div>Loading ....</div>
-    }
-
-    if(error) {
-        return <div>{error}</div>
     }
 
     const setStyle = (assetType: string) => ({
@@ -34,11 +37,13 @@ const Assets = () => {
     }
 
     const sortAssets = (type: string) => {
-        sorter(type, response);
+        const newList = sorter(type, assetList);
+        console.log(newList, "from sorter function");
+        setAssetList(Object.assign({}, assetList, newList));
     }
 
     return <div>
-        {response.length && <div>
+        {assetList.length && <div>
                 <table>
                     <thead>
                         <tr>
@@ -48,11 +53,11 @@ const Assets = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {response.map((listItem, index) => {
-                        return <tr key={index} className={setStyle(listItem.assetClass)}>
-                                <td>{listItem.ticker}</td>
-                                <td className={setPriceStyle(listItem.price)}>{listItem.price}</td>
-                                <td >{listItem.assetClass}</td>
+                        {assetList.map((listItem, index) => {
+                        return <tr key={index} className={setStyle(listItem['assetClass'])}>
+                                <td>{listItem['ticker']}</td>
+                                <td className={setPriceStyle(listItem['price'])}>{listItem['price']}</td>
+                                <td >{listItem['assetClass']}</td>
                             </tr>
                         })}
                     </tbody>
