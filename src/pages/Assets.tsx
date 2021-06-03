@@ -1,70 +1,40 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FunctionComponent } from 'react';
 import { useHelmet } from '../hooks/useHelmet';
-import './assets.scss';
 import { sorter } from '../utilities/sortingAlgo';
-
 import { getAssetList } from '../api/getAssetList';
+import TableComponent from './TableComponent';
 
-const Assets = () => {
+
+const tableHeaderTitles: string[] = ['Ticker', 'Price', 'Asset Type'];
+
+const Assets: FunctionComponent<{}> = () => {
     useHelmet('Assets Page');
-    const [assetList, setAssetList] = useState([]);
-    const [loading, setLoading] = useState(false);
-
+    const [pageState, setAssetList] = useState({
+        assets: [],
+        loading: false
+    });
     useEffect(() => {
+        setAssetList({ ...pageState, loading: true });
         getAssetList()
-        .then(list => {
-            setAssetList(list);
-        })
-    }, [])
+            .then(list => {
+                setAssetList({ ...pageState, assets: list, loading: false });
+            });
+    }, []);
 
+    const { assets, loading } = pageState;
 
-    if(!assetList.length || loading ) {
-        return <div>Loading ....</div>
-    }
-
-    const setStyle = (assetType: string) => ({
-        'Credit' : 'credit-asse',
-        'Equities' : 'equity-asset',
-        'Macro' : 'macro-asset'
-    })[assetType];
-
-    const setPriceStyle = (price : number) => {
-        if(price > 0) {
-            return 'pos-price';
-        } else {
-            return 'neg-price';
-        }
+    if (!assets?.length || loading) {
+        return <div className="loader">Loading ....</div>
     }
 
     const sortAssets = (type: string) => {
-        const newList = sorter(type, assetList);
-        console.log(newList, "from sorter function");
-        setAssetList(Object.assign({}, assetList, newList));
+        const newList = sorter(type, pageState.assets);
+        setAssetList({ ...pageState, assets: newList });
     }
 
-    return <div>
-        {assetList.length && <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th onClick={() => {sortAssets('Ticker')}}>Ticker</th>
-                            <th onClick={() => {sortAssets('Price')}}>Price</th>
-                            <th onClick={() => {sortAssets('Asset Type')}}>Asset Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {assetList.map((listItem, index) => {
-                        return <tr key={index} className={setStyle(listItem['assetClass'])}>
-                                <td>{listItem['ticker']}</td>
-                                <td className={setPriceStyle(listItem['price'])}>{listItem['price']}</td>
-                                <td >{listItem['assetClass']}</td>
-                            </tr>
-                        })}
-                    </tbody>
-                </table>
-            </div>}
-    </div>
-    
+    return <div className="asset-container">
+        <TableComponent pageState={pageState} tableHeaderTitles={tableHeaderTitles} sortAssets={sortAssets} />
+    </div>;
 }
 
 export default Assets;
