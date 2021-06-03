@@ -3,16 +3,17 @@ import { useHelmet } from '../hooks/useHelmet';
 import { sorter } from '../utilities/sortingAlgo';
 import { getAssetList } from '../api/getAssetList';
 import TableComponent from './TableComponent';
-
-
-const tableHeaderTitles: string[] = ['Ticker', 'Price', 'Asset Type'];
+import { tableHeaderTitles } from '../constants/constant';
 
 const Assets: FunctionComponent<{}> = () => {
+    
     useHelmet('Assets Page');
+    
     const [pageState, setAssetList] = useState({
         assets: [],
         loading: false
     });
+    
     useEffect(() => {
         setAssetList({ ...pageState, loading: true });
         getAssetList()
