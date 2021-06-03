@@ -25,7 +25,7 @@ const TableComponent: FunctionComponent<ITableProps> = ({ pageState, tableHeader
                 {pageState.assets.map((listItem, index) => {
                     return <tr key={index} className={styler(listItem['assetClass'])}>
                         <td>{listItem['ticker']}</td>
-                        <td ><span className={`price-container ${listItem['price'] > 0 ? 'pos-price' : 'neg-price'}`}>{listItem['price']}</span></td>
+                        <td ><span className={`price-container ${listItem['price'] > 0 ? 'pos-price' : 'neg-price'}`}>{listItem['price'].toLocaleString('en-UK', {style:'currency', currency:'GBP'})}</span></td>
                         <td >{listItem['assetClass']}</td>
                     </tr>
                 })}

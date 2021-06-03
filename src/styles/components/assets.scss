@@ -8,8 +8,13 @@ table, th, td {
     border-collapse: collapse;
   }
 
+  th {
+    background-color: lightgray;
+  }
+
   th:hover {
     cursor: pointer;
+    background-color: white;
   }
 
   th, td {

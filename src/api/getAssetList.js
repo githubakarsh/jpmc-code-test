@@ -1,7 +1,8 @@
 
+import { listApiUrl } from '../constants/constant';
 
 export const getAssetList = () => {
-    return fetch('http://localhost:3333/list')
+    return fetch(listApiUrl)
     .then(data => data.json())
     .catch(error => {
         return error;
