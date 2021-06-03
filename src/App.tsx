@@ -1,11 +1,7 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import Assets from './pages/Assets';
+import { FunctionComponent } from 'react';
 
-
-
-function App() {
+const App:FunctionComponent<{}> = () => {
   return (
     <div >
      <Assets />

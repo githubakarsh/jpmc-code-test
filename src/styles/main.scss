@@ -1,2 +1,8 @@
 @import './components/assets.scss';
 @import './components/loader.scss';
+
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 12px;
+    }
+}
