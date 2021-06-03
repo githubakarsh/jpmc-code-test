@@ -12,7 +12,7 @@ const TableComponent: FunctionComponent<ITableProps> = ({ pageState, tableHeader
         return assetclass === 'Credit' ? 'credit-asset' : assetclass === 'Equities' ? 'equity-asset' : 'macro-asset';
     }
 
-    return <section>{pageState.assets.length && <div>
+    return <section className="table-container">{pageState.assets.length && <div>
         <table>
             <thead>
                 <tr>

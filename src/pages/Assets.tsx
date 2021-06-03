@@ -3,7 +3,7 @@ import { useHelmet } from '../hooks/useHelmet';
 import { sorter } from '../utilities/sortingAlgo';
 import { getAssetList } from '../api/getAssetList';
 import TableComponent from './TableComponent';
-import { tableHeaderTitles } from '../constants/constant';
+import { tableHeaderTitles, loadingText } from '../constants/constant';
 
 const Assets: FunctionComponent<{}> = () => {
     
@@ -25,7 +25,7 @@ const Assets: FunctionComponent<{}> = () => {
     const { assets, loading } = pageState;
 
     if (!assets?.length || loading) {
-        return <div className="loader">Loading ....</div>
+        return <div className="loader">{loadingText}</div>
     }
 
     const sortAssets = (type: string) => {
