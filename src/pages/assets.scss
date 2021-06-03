@@ -3,6 +3,10 @@ table, th, td {
     border-collapse: collapse;
   }
 
+  th:hover {
+    cursor: pointer;
+  }
+
   th, td {
     padding: 6px;
   }

@@ -2,13 +2,15 @@ import { useState } from 'react';
 import useFetchAssets from "../hooks/useFetchAssets";
 import { useHelmet } from '../hooks/useHelmet';
 import './assets.scss';
+import { sorter } from '../utilities/sortingAlgo';
 
 
 const Assets = () => {
     const assetsList = useFetchAssets();
     const { error, loading, response } = assetsList;
+
     useHelmet('Assets Page');
-    
+
     if(loading) {
         return <div>Loading ....</div>
     }
@@ -31,14 +33,18 @@ const Assets = () => {
         }
     }
 
+    const sortAssets = (type: string) => {
+        sorter(type, response);
+    }
+
     return <div>
         {response.length && <div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Ticker</th>
-                            <th>Price</th>
-                            <th>Asset Class</th>
+                            <th onClick={() => {sortAssets('Ticker')}}>Ticker</th>
+                            <th onClick={() => {sortAssets('Price')}}>Price</th>
+                            <th onClick={() => {sortAssets('Asset Type')}}>Asset Type</th>
                         </tr>
                     </thead>
                     <tbody>
