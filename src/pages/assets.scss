@@ -1,0 +1,33 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  .credit-asset {
+    background-color : white;
+    color: black;
+  }
+
+  .equity-asset {
+    background-color: blue;
+    color: white;
+  }
+
+  .macro-asset {
+    background-color: green;
+    color: white;
+  }
+
+  .pos-price {
+    background-color: blue;
+    color: white;
+  }
+
+  .neg-price {
+    background-color: red;
+    color: white;
+  }
