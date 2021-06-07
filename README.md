@@ -18,6 +18,6 @@ You will also see any lint errors in the console.
 
 Runs the api server which provides the list of asset items at http://localhost:3333/list
 
-### `npm test`
+### `npm run cypress:open`
 
 for running tests

@@ -25,7 +25,7 @@ const Assets: FunctionComponent<{}> = () => {
     const { assets, loading } = pageState;
 
     if (!assets?.length || loading) {
-        return <div className="loader">{loadingText}</div>
+        return <div className="loader" id="page-loader">{loadingText}</div>
     }
 
     const sortAssets = (type: string) => {

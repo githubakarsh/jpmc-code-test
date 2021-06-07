@@ -12,11 +12,14 @@ const TableComponent: FunctionComponent<ITableProps> = ({ pageState, tableHeader
         return assetclass === 'Credit' ? 'credit-asset' : assetclass === 'Equities' ? 'equity-asset' : 'macro-asset';
     }
 
-    return <section className="table-container">{pageState.assets.length && <div>
+    let tableComponent = <div>no data to display</div>;
+
+    if(pageState.assets.length) {
+        tableComponent = <div>
         <table>
             <thead>
                 <tr>
-                    {tableHeaderTitles.map((item, index) => {
+                    {pageState.assets.length && tableHeaderTitles.map((item, index) => {
                         return <th onClick={() => { sortAssets(item) }}>{item}</th>
                     })}
                 </tr>
@@ -31,7 +34,9 @@ const TableComponent: FunctionComponent<ITableProps> = ({ pageState, tableHeader
                 })}
             </tbody>
         </table>
-    </div>}</section>
+    </div>
+    }
+    return <section className="table-container">{tableComponent}</section>;
 }
 
 export default TableComponent;
