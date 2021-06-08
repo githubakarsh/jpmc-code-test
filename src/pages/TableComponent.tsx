@@ -1,11 +1,19 @@
 import { FunctionComponent } from 'react';
 
+/**
+ * Interface for Table props
+ */
 interface ITableProps {
     pageState: any,
     tableHeaderTitles: any,
     sortAssets: any,
 }
 
+/**
+ * 
+ * @returns a Data table
+ * Its a controlled / stateless component where displays the data in tabular format 
+ */
 const TableComponent: FunctionComponent<ITableProps> = ({ pageState, tableHeaderTitles, sortAssets, }) => {
 
     const styler = (assetclass) => {
